@@ -1,6 +1,6 @@
 from flask import Blueprint, request, jsonify
 import random
-
+from backend.database import get_db
 chatbot_bp = Blueprint('chatbot', __name__)
 
 # High-Performance Industrial AI Knowledge Base

@@ -1,5 +1,5 @@
 from flask import Blueprint, request, jsonify
-from database import get_db
+from backend.database import get_db
 
 product_bp = Blueprint('products', __name__)
 db = get_db()

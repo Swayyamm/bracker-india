@@ -1,5 +1,5 @@
 from flask import Blueprint, request, jsonify
-from database import get_db
+from backend.database import get_db
 from passlib.hash import pbkdf2_sha256
 import jwt
 import datetime

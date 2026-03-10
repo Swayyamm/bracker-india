@@ -1,5 +1,5 @@
 from flask import Blueprint, request, jsonify, send_file
-from database import get_db
+from backend.database import get_db
 from middleware import token_required
 import stripe
 import os

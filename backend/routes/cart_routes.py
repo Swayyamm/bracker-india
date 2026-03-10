@@ -1,5 +1,5 @@
 from flask import Blueprint, request, jsonify
-from database import get_db
+from backend.database import get_db
 from middleware import token_required
 
 cart_bp = Blueprint('cart', __name__)
