@@ -3,7 +3,7 @@ from backend.database import get_db
 from backend.middleware import token_required
 import stripe
 import os
-from utils.pdf_generator import generate_invoice_pdf
+from backend.utils.pdf_generator import generate_invoice_pdf
 
 order_bp = Blueprint('orders', __name__)
 db = get_db()
