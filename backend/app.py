@@ -4,12 +4,12 @@ load_dotenv()
 
 from flask import Flask
 from flask_cors import CORS
-from routes.auth_routes import auth_bp
-from routes.product_routes import product_bp
-from routes.order_routes import order_bp
-from routes.admin_routes import admin_bp
-from routes.cart_routes import cart_bp
-from routes.chatbot_routes import chatbot_bp
+from backend.routes.auth_routes import auth_bp
+from backend.routes.product_routes import product_bp
+from backend.routes.cart_routes import cart_bp
+from backend.routes.order_routes import order_bp
+from backend.routes.chatbot_routes import chatbot_bp
+from backend.routes.admin_routes import admin_bp
 
 app = Flask(__name__)
 CORS(app, resources={r"/api/*": {"origins": "*"}})
