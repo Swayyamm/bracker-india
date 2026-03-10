@@ -1,6 +1,6 @@
 from flask import Blueprint, request, jsonify
 from backend.database import get_db
-from middleware import token_required, admin_required
+from backend.middleware import token_required, admin_required
 import pandas as pd
 import io
 
