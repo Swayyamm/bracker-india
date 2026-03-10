@@ -1,0 +1,183 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700&display=swap');
+
+@import "tailwindcss";
+
+@theme {
+  --color-industrial-50: #f0f4f8;
+  --color-industrial-100: #d9e2ec;
+  --color-industrial-200: #bcccdc;
+  --color-industrial-300: #9fb3c8;
+  --color-industrial-400: #829ab1;
+  --color-industrial-500: #627d98;
+  --color-industrial-600: #486581;
+  --color-industrial-700: #334e68;
+  --color-industrial-800: #243b53;
+  --color-industrial-900: #102a43;
+
+  --color-accent-blue: #2563eb;
+  --color-accent-dark: #0f172a;
+
+  --font-sans: "Inter", system-ui, sans-serif;
+  --font-display: "Poppins", sans-serif;
+}
+
+@layer base {
+  body {
+    @apply bg-white text-industrial-900 font-sans antialiased;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-display font-bold;
+  }
+}
+
+@utility btn {
+  @apply px-6 py-2 rounded-lg font-semibold transition-all duration-200 active:scale-95 disabled:opacity-50;
+}
+
+@utility btn-primary {
+  @apply btn bg-accent-blue text-white hover:bg-blue-700 shadow-lg shadow-blue-500/20;
+}
+
+@utility btn-secondary {
+  @apply btn bg-industrial-100 text-industrial-800 hover:bg-industrial-200;
+}
+
+@utility card {
+  @apply bg-white rounded-xl shadow-md border border-industrial-100 overflow-hidden hover:shadow-xl transition-shadow duration-300;
+}
+
+@utility input-field {
+  @apply w-full px-4 py-2 rounded-lg border border-industrial-200 focus:ring-2 focus:ring-accent-blue focus:border-transparent outline-none transition-all;
+}
+
+.glass {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+/* ================= ABOUT PAGE ================= */
+
+.about-page,
+.contact-page {
+  padding: 60px 0;
+}
+
+.page-title {
+  font-size: 32px;
+  font-weight: 700;
+  color: #0f172a;
+  margin-bottom: 40px;
+  position: relative;
+}
+
+.page-title::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -10px;
+  width: 60px;
+  height: 4px;
+  background: #2563eb;
+  border-radius: 2px;
+}
+
+.about-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit,minmax(260px,1fr));
+  gap: 30px;
+}
+
+.about-card {
+  background: #ffffff;
+  border-radius: 14px;
+  padding: 28px;
+  box-shadow: 0 8px 20px rgba(0,0,0,.06);
+  transition: .3s ease;
+}
+
+.about-card:hover {
+  transform: translateY(-5px);
+}
+
+.about-card h3 {
+  font-size: 18px;
+  margin-bottom: 10px;
+  color: #0f172a;
+}
+
+.about-card p {
+  color: #475569;
+  line-height: 1.6;
+}
+
+/* ================= CONTACT ================= */
+
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+}
+
+.contact-form {
+  background: #ffffff;
+  padding: 30px;
+  border-radius: 14px;
+  box-shadow: 0 8px 20px rgba(0,0,0,.06);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.contact-form input,
+.contact-form textarea {
+  padding: 12px 14px;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+  font-size: 14px;
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+  outline: none;
+  border-color: #2563eb;
+}
+
+.contact-form button {
+  background: #2563eb;
+  color: white;
+  padding: 12px;
+  border-radius: 10px;
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.contact-form button:hover {
+  background: #1d4ed8;
+}
+
+.contact-info {
+  background: #ffffff;
+  padding: 30px;
+  border-radius: 14px;
+  box-shadow: 0 8px 20px rgba(0,0,0,.06);
+}
+
+.contact-info p {
+  margin-bottom: 12px;
+  color: #475569;
+}
+
+/* Responsive */
+
+@media(max-width:900px){
+  .contact-grid{
+    grid-template-columns:1fr;
+  }
+}
