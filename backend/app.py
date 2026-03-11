@@ -18,6 +18,17 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 FRONTEND_DIST = os.path.abspath(os.path.join(BASE_DIR, "..", "frontend", "dist"))
 
 app = Flask(__name__, static_folder=FRONTEND_DIST, static_url_path="")
+@app.after_request
+def add_security_headers(response):
+    response.headers["Content-Security-Policy"] = (
+        "default-src 'self'; "
+        "script-src 'self' https://js.stripe.com blob:; "
+        "frame-src https://js.stripe.com https://checkout.stripe.com; "
+        "connect-src 'self' https://api.stripe.com https://checkout.stripe.com; "
+        "img-src 'self' data: https:; "
+        "style-src 'self' 'unsafe-inline';"
+    )
+    return response
 
 CORS(app, resources={r"/api/*": {"origins": "*"}})
 
