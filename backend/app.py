@@ -49,18 +49,19 @@ app.register_blueprint(chatbot_bp, url_prefix="/api/chatbot")
 
 @app.route("/", defaults={"path": ""})
 @app.route("/<path:path>")
-def serve(path):
+def serve_react(path):
 
+    # Do not intercept API routes
     if path.startswith("api"):
         return {"error": "API route"}, 404
 
+    # Serve static files (js, css, images)
     full_path = os.path.join(FRONTEND_DIST, path)
-
     if path != "" and os.path.exists(full_path):
         return send_from_directory(FRONTEND_DIST, path)
 
+    # Always return React index.html for routes like /success /shop /profile
     return send_from_directory(FRONTEND_DIST, "index.html")
-
 
 # ---------------- RUN ----------------
 
