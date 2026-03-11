@@ -39,7 +39,7 @@ app.config["SECRET_KEY"] = os.getenv("SECRET_KEY")
 
 app.register_blueprint(auth_bp, url_prefix="/api/auth")
 app.register_blueprint(product_bp, url_prefix="/api/products")
-app.register_blueprint(order_bp, url_prefix="/api/orders")
+app.register_blueprint(order_bp)
 app.register_blueprint(admin_bp, url_prefix="/api/admin")
 app.register_blueprint(cart_bp, url_prefix="/api/cart")
 app.register_blueprint(chatbot_bp, url_prefix="/api/chatbot")
