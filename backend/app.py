@@ -13,9 +13,8 @@ from backend.routes.chatbot_routes import chatbot_bp
 from backend.routes.admin_routes import admin_bp
 
 
-# Path to React build folder
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-FRONTEND_DIST = os.path.join(BASE_DIR, "..", "frontend", "dist")
+# Correct path to React build folder (works on Render)
+FRONTEND_DIST = os.path.join(os.getcwd(), "frontend", "dist")
 
 app = Flask(
     __name__,
@@ -37,7 +36,7 @@ app.register_blueprint(cart_bp, url_prefix="/api/cart")
 app.register_blueprint(chatbot_bp, url_prefix="/api/chatbot")
 
 
-# Serve React
+# Serve React frontend
 @app.route("/", defaults={"path": ""})
 @app.route("/<path:path>")
 def serve_react(path):
