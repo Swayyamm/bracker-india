@@ -216,3 +216,13 @@ def get_invoice(current_user_id, role, order_id):
         )
     except Exception as e:
         return jsonify({"error": str(e)}), 500
+
+@order_bp.route('/success', methods=['GET'])
+def success():
+    session_id = request.args.get('session_id')
+    success = request.args.get('success')
+
+    if success == 'true' and session_id:
+        return jsonify({"message": "Payment successful", "session_id": session_id}), 200
+    else:
+        return jsonify({"error": "Invalid request"}), 400
