@@ -13,8 +13,10 @@ from backend.routes.chatbot_routes import chatbot_bp
 from backend.routes.admin_routes import admin_bp
 
 
-# Correct path to React build folder (works on Render)
-FRONTEND_DIST = os.path.join(os.getcwd(), "frontend", "dist")
+# Correct path to React build folder
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+FRONTEND_DIST = os.path.join(BASE_DIR, "..", "frontend", "dist")
+
 
 app = Flask(
     __name__,
@@ -27,7 +29,10 @@ CORS(app, resources={r"/api/*": {"origins": "*"}})
 app.config["SECRET_KEY"] = os.getenv("SECRET_KEY")
 
 
-# API routes
+# -------------------------
+# API ROUTES
+# -------------------------
+
 app.register_blueprint(auth_bp, url_prefix="/api/auth")
 app.register_blueprint(product_bp, url_prefix="/api/products")
 app.register_blueprint(order_bp, url_prefix="/api/orders")
@@ -36,18 +41,31 @@ app.register_blueprint(cart_bp, url_prefix="/api/cart")
 app.register_blueprint(chatbot_bp, url_prefix="/api/chatbot")
 
 
-# Serve React frontend
+# -------------------------
+# SERVE REACT FRONTEND
+# -------------------------
+
 @app.route("/", defaults={"path": ""})
 @app.route("/<path:path>")
 def serve_react(path):
 
+    # Do NOT intercept API routes
+    if path.startswith("api"):
+        return {"error": "API route not found"}, 404
+
     file_path = os.path.join(FRONTEND_DIST, path)
 
-    if path != "" and os.path.exists(file_path):
+    # Serve static assets (js/css/images)
+    if os.path.exists(file_path):
         return send_from_directory(FRONTEND_DIST, path)
 
+    # Otherwise serve React index.html
     return send_from_directory(FRONTEND_DIST, "index.html")
 
+
+# -------------------------
+# START SERVER
+# -------------------------
 
 if __name__ == "__main__":
     port = int(os.getenv("PORT", 5000))
