@@ -24,11 +24,12 @@ def add_security_headers(response):
         "default-src 'self'; "
         "script-src 'self' https://js.stripe.com blob:; "
         "frame-src https://js.stripe.com https://checkout.stripe.com; "
-        "connect-src 'self' https://api.stripe.com https://checkout.stripe.com; "
+        "connect-src 'self' https://api.stripe.com https://checkout.stripe.com https://www.google-analytics.com; "
         "img-src 'self' data: https:; "
         "style-src 'self' 'unsafe-inline';"
     )
     return response
+
 
 CORS(app, resources={r"/api/*": {"origins": "*"}})
 
@@ -62,6 +63,24 @@ def serve_react(path):
 
     # Always return React index.html for routes like /success /shop /profile
     return send_from_directory(FRONTEND_DIST, "index.html")
+
+
+@app.route("/")
+def root():
+    return send_from_directory(FRONTEND_DIST, "index.html")
+
+
+@app.route("/<path:path>")
+def static_proxy(path):
+    file_path = os.path.join(FRONTEND_DIST, path)
+
+    # If the file exists (JS/CSS/images), serve it
+    if os.path.exists(file_path):
+        return send_from_directory(FRONTEND_DIST, path)
+
+    # Otherwise serve React (for routes like /success /shop etc)
+    return send_from_directory(FRONTEND_DIST, "index.html")
+
 
 @app.errorhandler(404)
 def not_found(e):
