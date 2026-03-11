@@ -58,7 +58,6 @@ def query_chatbot():
     if not user_query:
         return jsonify({"response": "◈ SYSTEM ALERT ◈\n\nPlease provide a technical query for analysis."})
 
-    from database import get_db
     db = get_db()
 
     # 1. SHOW PRODUCTS INTENT

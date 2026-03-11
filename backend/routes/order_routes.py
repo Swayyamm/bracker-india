@@ -84,7 +84,7 @@ def checkout(current_user_id, role):
         })
 
     try:
-        frontend_url = os.getenv('FRONTEND_URL', 'http://localhost:5173')
+        frontend_url = os.getenv('FRONTEND_URL', 'https://the-bracker-india.onrender.com')
         # Create Stripe Checkout Session
         checkout_session = stripe.checkout.Session.create(
             payment_method_types=['card'],
