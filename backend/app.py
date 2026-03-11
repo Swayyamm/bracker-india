@@ -39,16 +39,19 @@ app.register_blueprint(chatbot_bp, url_prefix="/api/chatbot")
 
 
 # Serve React
+import os
+from flask import send_from_directory
+
+FRONTEND_DIST = os.path.join(os.getcwd(), "frontend", "dist")
+
 @app.route("/", defaults={"path": ""})
 @app.route("/<path:path>")
 def serve_react(path):
-    file_path = os.path.join(FRONTEND_DIST, path)
 
-    if path != "" and os.path.exists(file_path):
+    if path != "" and os.path.exists(os.path.join(FRONTEND_DIST, path)):
         return send_from_directory(FRONTEND_DIST, path)
 
     return send_from_directory(FRONTEND_DIST, "index.html")
-
 
 if __name__ == "__main__":
     port = int(os.getenv("PORT", 5000))
